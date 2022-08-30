@@ -3,8 +3,13 @@ class AbstractWorldModel():
     actions = []
     goals = []
     time_passed = 0
+    actions_discovered = False
 
     def next_action(self):
+        if self.actions_discovered == False:
+            self.discover_actions()
+            self.actions_discovered = True
+
         if self.action_pointer > len(self.actions)-1:
             return None
 

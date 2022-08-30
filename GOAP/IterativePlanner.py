@@ -13,6 +13,7 @@ class IterativePlanner():
         models[0] = world_model
 
         bestAction = None
+        bestSequence = []
         bestValue = math.inf
 
         currentDepth = 0
@@ -23,10 +24,12 @@ class IterativePlanner():
                 if currentValue < bestValue:
                     bestValue = currentValue
                     bestAction = actions[0]
+                    # print("New best sequence: ",actions)
                 currentDepth -= 1
             else:
                 nextAction = models[currentDepth].next_action()
                 if nextAction != None:
+                    models[currentDepth + 1] = None
 
                     models[currentDepth+1] = models[currentDepth].copy()
                     actions[currentDepth] = nextAction
